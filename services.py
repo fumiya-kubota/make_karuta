@@ -34,23 +34,23 @@ SIZES = [''.join(p) for p in product('AB', '0123456')]
 
 
 @click.command()
+@click.argument('bg', click.Path(exists=True, file_okay=UnicodeTranslateError, dir_okay=False))
 @click.option('--paper_size', type=click.Choice(SIZES), default='A4')
 @click.option('--resolution', type=click.INT, default=200)
-@click.option('--karuta_size', type=click.Tuple([int, int]), default=(65, 93))
+@click.option('--karuta_size', type=click.Tuple([int, int]), default=(55, 85))
 @click.option('--dist', type=click.STRING, default='dist.png')
-def cmd(paper_size, resolution, karuta_size, dist):
+def cmd(bg, paper_size, resolution, karuta_size, dist):
     w, h = get_paper_size(paper_size)
     w, h = calc_context_size(w, h, resolution)
     canvas = Image.new('RGB', (w, h), color='white')
     karuta_w, karuta_h = karuta_size
     karuta_w, karuta_h = calc_context_size(karuta_w, karuta_h, resolution)
-    karuta = Image.new('RGB', (karuta_w, karuta_h), color='white')
+    karuta = Image.open(bg)
+    karuta = karuta.resize((karuta_w, karuta_h))
     karuta_draw = ImageDraw.Draw(karuta)
 
     margin = get_pixel_size(8, resolution)
     space = get_pixel_size(0.1, resolution)
-    karuta_draw.line([(0, 0), (karuta_w, karuta_h)], fill='blue', width=3)
-    karuta_draw.line([(karuta_w, 0), (0, karuta_h)], fill='blue', width=3)
 
     draw = ImageDraw.Draw(canvas)
     for x in range(margin, w - karuta_w, karuta_w + space):
