@@ -19,7 +19,7 @@ Options:
 "BG" Please specify the path of the image of the frame.
 
 ## Options:
-For "paper_size", please select the paper size to use when printing.  
+For "paper_size", please select the paper size to use when printing(default is A4).  
 "resolution" should specify the resolution, ie pixel per inch (default is 200).  
-"karuta_size" is the size of a single karuta. Please specify units in millimeters, width, height.  
-"dist" is the output destination directory.
+"karuta_size" is the size of a single karuta. Please specify units in millimeters, width, height(default is 85,55).  
+"dist" is the output destination directory(default is dist).
