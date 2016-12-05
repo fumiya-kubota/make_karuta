@@ -5,7 +5,6 @@ from math import floor
 import os
 import shutil
 
-WORDS_CSV = os.path.join('assets', 'words.csv')
 MAIN_FONT = os.path.join('assets', 'Jiyucho.ttf')
 SUB_FONT = os.path.join('assets', 'やさしさゴシック手書き.otf')
 
@@ -102,19 +101,20 @@ def make_karuta_seats(karuta_images, seat_w, seat_h, karuta_w, karuta_h, resolut
 
 
 @click.command()
-@click.argument('bg', click.Path(exists=True, file_okay=UnicodeTranslateError, dir_okay=False))
+@click.argument('bg', click.Path(exists=True, file_okay=True, dir_okay=False))
+@click.argument('words_csv', click.Path(exists=True, file_okay=True, dir_okay=False))
 @click.option('--paper_size', type=click.Choice(SIZES), default='A4')
 @click.option('--resolution', type=click.INT, default=200)
 @click.option('--karuta_size', type=click.Tuple([int, int]), default=(85, 55))
 @click.option('--dist', type=click.STRING, default='dist')
-def cmd(bg, paper_size, resolution, karuta_size, dist):
+def cmd(bg, words_csv, paper_size, resolution, karuta_size, dist):
     w, h = get_paper_size(paper_size)
     w, h = calc_context_size(w, h, resolution)
     karuta_w, karuta_h = karuta_size
     karuta_w, karuta_h = calc_context_size(karuta_w, karuta_h, resolution)
     main_font = ImageFont.truetype(MAIN_FONT, size=FONT_SIZE)
     sub_font = ImageFont.truetype(SUB_FONT, size=SUB_FONT_SIZE)
-    karuta_images = make_karuta_images(bg, WORDS_CSV, karuta_w, karuta_h, main_font, sub_font)
+    karuta_images = make_karuta_images(bg, words_csv, karuta_w, karuta_h, main_font, sub_font)
 
     if os.path.exists(dist):
         shutil.rmtree(dist)
@@ -122,7 +122,6 @@ def cmd(bg, paper_size, resolution, karuta_size, dist):
     for idx, seat in enumerate(make_karuta_seats(karuta_images, w, h, karuta_w, karuta_h, resolution), 1):
         output = os.path.join(dist, '{}.png'.format(idx))
         seat.save(output)
-
 
 
 if __name__ == '__main__':

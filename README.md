@@ -5,7 +5,7 @@ This script will create the image, such as the following image.
 
 ## Usage:
 ```
-Usage: services.py [OPTIONS] BG
+Usage: services.py [OPTIONS] BG WORDS_CSV
 
 Options:
   --paper_size [A0|A1|A2|A3|A4|A5|A6|B0|B1|B2|B3|B4|B5|B6]
@@ -17,6 +17,7 @@ Options:
 
 ## arguments:
 "BG" Please specify the path of the image of the frame.
+"WORDS_CSV" is the path of the csv file of characters to be input.
 
 ## Options:
 For "paper_size", please select the paper size to use when printing(default is A4).  
