@@ -7,9 +7,10 @@ import shutil
 
 MAIN_FONT = os.path.join('assets', 'Jiyucho.ttf')
 SUB_FONT = os.path.join('assets', 'やさしさゴシック手書き.otf')
-
-FONT_SIZE = int(137 * (55 / 65))
+# FONT_SIZE = int(137 * (55 / 65))
+FONT_SIZE = int(112 * (55 / 65))
 SUB_FONT_SIZE = int(50 * (55 / 65))
+BLACK = (51, 51, 51)
 
 
 def get_paper_size(paper_size):
@@ -50,10 +51,10 @@ def make_karuta_image(bg_iamge, main_word, sub_word_1, sub_word_2, karuta_w, kar
     sub_text2_w, sub_text2_h = sub_font.getsize(sub_word_2)
     karuta_draw = ImageDraw.Draw(karuta)
     karuta_draw.text((karuta_w / 2 - sub_text1_w / 2, karuta_h / 2 - (text_h / 2 + 20 + sub_text2_h)), sub_word_1,
-                     fill='black',
+                     fill=BLACK,
                      font=sub_font)
-    karuta_draw.text((karuta_w / 2 - text_w / 2, karuta_h / 2 - text_h / 2), main_word, fill='black', font=main_font)
-    karuta_draw.text((karuta_w / 2 - sub_text2_w / 2, karuta_h / 2 + (text_h / 2 + 20)), sub_word_2, fill='black',
+    karuta_draw.text((karuta_w / 2 - text_w / 2, karuta_h / 2 - text_h / 2), main_word, fill=BLACK, font=main_font)
+    karuta_draw.text((karuta_w / 2 - sub_text2_w / 2, karuta_h / 2 + (text_h / 2 + 20)), sub_word_2, fill=BLACK,
                      font=sub_font)
     return karuta
 
